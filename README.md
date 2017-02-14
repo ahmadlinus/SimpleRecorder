@@ -13,30 +13,30 @@ I may create a CocoaPod for it later, but until then you can simply copy and pas
 
 There are two initializers, one using a file URL, the second one using a file URL and an AudioStreamBasicDescription struct. In the case of the latter, you can control the configuaration of the audio being recorded, otherwise the default settings would be considered (16000 frequency, little-endian LinearPCM, 16 bit depth, mono). Just find a valid URL within your system and pass it to the initialiazor.
 
-''' objc
+``` objc
 // init
 - (id) initWithAudioStreamBasicDescription:(AudioStreamBasicDescription)asbd URL:(NSURL*) fileURL;
 - (id) initWithFileURL: (NSURL*) fileURL;
-'''
+```
 
 Then you would also have to set the instance's delegate to the class you're using it in:
 
-'''objc
+```objc
 SimpleRecorder* SR = [[SimpleRecorder alloc] initWithFileURL: URL];
 SR.delegate = self;
-'''
+```
 and include the delegate in the class definition:
-'''objc
+```objc
 @interface MyClass : UIViewController <SimpleRecorderDelegate>
-'''
+```
 You're done.
 
 ### Capturing Audio
 
 Implement the following delegate method inside your class:
 
-'''objc
+```objc
 - (void) audioChunkRecorded: (SimpleRecorder*) SRecoder withRawData: (NSData*) data;
-'''
+```
 
 It returns a NSData object every time a chunk is recorded.
